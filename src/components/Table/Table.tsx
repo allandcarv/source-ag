@@ -11,11 +11,11 @@ import { StyledTable } from './Table.styles';
 
 type TableProps = PropsWithChildren & TableHTMLAttributes<HTMLTableElement>;
 
-const Table: FC<TableProps> = ({ children, ...props }) => {
+const _Table: FC<TableProps> = ({ children, ...props }) => {
   return <StyledTable {...props}>{children}</StyledTable>;
 };
 
-export default Object.assign(Table, {
+export const Table = Object.assign(_Table, {
   Body,
   Cell,
   Foot,

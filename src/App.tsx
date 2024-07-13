@@ -1,3 +1,4 @@
 import type { FC } from 'react';
+import { UsersTable } from './components/UsersTable/UsersTable';
 
-export const App: FC = () => <h1>Hello World</h1>;
+export const App: FC = () => <UsersTable />;
