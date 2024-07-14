@@ -16,4 +16,7 @@ export const StyledDialog = styled.dialog`
   display: block;
   position: relative;
   border: 0;
+  border-radius: 0.25rem;
+  max-width: 80%;
+  max-height: 80%;
 `;

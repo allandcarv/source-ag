@@ -1,6 +1,10 @@
-import { Modal } from '../../../../core/components/Modal/Modal';
+import type { FC } from 'react';
 
-import { flexDirectionColumn } from './UsersModalBody.styles';
+import { Modal } from '../../../../core/components/Modal/Modal';
+import { UsersModalBodyRow } from '../UsersModalBodyRow/UsersModalBodyRow';
+
+import { StyledUL } from './UsersModalBody.styles';
+import { SearchInput } from '../../../../core/components/SearchInput/SearchInput';
 
 const DUMMY_DATA = [
   { name: 'Ajay Elkanah', role: 'Head grower' },
@@ -10,16 +14,15 @@ const DUMMY_DATA = [
   { name: 'Paulien Jonker', role: 'Wholesaler' },
 ];
 
-export const UsersModalBody = () => {
+export const UsersModalBody: FC = () => {
   return (
-    <Modal.Body className={flexDirectionColumn}>
-      <input type="text" placeholder="Search teammember" />
-      {DUMMY_DATA.map((user) => (
-        <>
-          <input type="checkbox" value={user.name} key={user.name} />
-          <label>{user.name}</label>
-        </>
-      ))}
+    <Modal.Body>
+      <SearchInput type="text" placeholder="Search teammember" />
+      <StyledUL>
+        {DUMMY_DATA.map((user) => (
+          <UsersModalBodyRow user={user} key={user.name} />
+        ))}
+      </StyledUL>
     </Modal.Body>
   );
 };

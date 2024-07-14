@@ -12,7 +12,7 @@ interface ModalProps
   onClose: () => void;
 }
 
-export const _Modal: FC<ModalProps> = ({ children, ...props }) => {
+export const _Modal: FC<ModalProps> = ({ children, onClose, ...props }) => {
   const portalEl = document.getElementById('portal');
 
   if (!portalEl) {
@@ -20,8 +20,8 @@ export const _Modal: FC<ModalProps> = ({ children, ...props }) => {
   }
 
   return createPortal(
-    <StyledOverlay>
-      <StyledDialog autoFocus {...props}>
+    <StyledOverlay onClick={onClose}>
+      <StyledDialog onClick={(e) => e.stopPropagation()} autoFocus {...props}>
         {children}
       </StyledDialog>
     </StyledOverlay>,
