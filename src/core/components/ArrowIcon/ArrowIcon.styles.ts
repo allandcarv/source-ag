@@ -2,7 +2,7 @@ import { styled } from '@linaria/react';
 
 import type { ArrowIconProps } from './ArrowIcon';
 
-export const StyledArrow = styled.i<ArrowIconProps>`
+export const StyledArrowIcon = styled.i<ArrowIconProps>`
   display: flex;
   align-items: center;
   justify-content: center;
