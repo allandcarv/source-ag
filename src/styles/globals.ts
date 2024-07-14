@@ -17,6 +17,10 @@ export const globals = css`
 
     button {
       cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
   }
 `;

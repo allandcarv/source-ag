@@ -1,6 +1,6 @@
 import { Table } from '../../core/components/Table/Table';
 import { UsersTableBody } from './components/UsersTableBody/UsersTableBody';
-import { UsersTableFooter } from './components/UsersTableFooter';
+import { UsersTableFooter } from './components/UsersTableFooter/UsersTableFooter';
 import { UsersTableHeader } from './components/UsersTableHeader';
 
 const DUMMY_DATA = [

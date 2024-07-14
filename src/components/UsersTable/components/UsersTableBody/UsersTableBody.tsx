@@ -5,6 +5,7 @@ import { Table } from '../../../../core/components/Table/Table';
 import { ArrowIcon } from '../../../../core/components/ArrowIcon/ArrowIcon';
 
 import { roleCell } from './UsersTableBody.styles';
+import { Button } from '../../../../core/components/Button/Button';
 
 interface UsersTableBodyProps {
   users: User[];
@@ -20,7 +21,7 @@ export const UsersTableBody: FC<UsersTableBodyProps> = ({ users }) => {
             {user.role} <ArrowIcon collapsed />
           </Table.Cell>
           <Table.Cell>
-            <button>Remove</button>
+            <Button variant="link">Remove</Button>
           </Table.Cell>
         </Table.Row>
       ))}
