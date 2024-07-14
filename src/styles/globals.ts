@@ -13,6 +13,7 @@ export const globals = css`
     #root {
       width: 100%;
       height: 100%;
+      background-color: #f6f9f3;
     }
 
     button {

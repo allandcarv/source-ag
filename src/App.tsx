@@ -1,4 +1,5 @@
 import type { FC } from 'react';
-import { UsersTable } from './components/UsersTable/UsersTable';
 
-export const App: FC = () => <UsersTable />;
+import { CultivationTeam } from './pages/CultivationTeam/CultivationTeam';
+
+export const App: FC = () => <CultivationTeam />;
