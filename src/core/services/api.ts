@@ -1,19 +1,57 @@
 const URL = 'https://14dtv3lu9k.execute-api.eu-central-1.amazonaws.com/';
 
 export const getCultivations = async () => {
-  const result = await fetch(`${URL}cultivations`);
+  try {
+    const result = await fetch(`${URL}cultivations`);
 
-  return result.json();
+    if (!result.ok) {
+      throw new Error('Error Fetching Cultivations');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Fetching Cultivations: ${err}`);
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    const result = await fetch(`${URL}users`);
+
+    if (!result.ok) {
+      throw new Error('Error Fetching Users');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Fetching Users: ${err}`);
+  }
 };
 
 export const getCultivationUsers = async (cultivationId: string) => {
-  const result = await fetch(`${URL}cultivations/${cultivationId}/users`);
+  try {
+    const result = await fetch(`${URL}cultivations/${cultivationId}/users`);
 
-  return result.json();
+    if (!result.ok) {
+      throw new Error('Error Fetching Cultivation Users');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Fetching Cultivation Users: ${err}`);
+  }
 };
 
 export const getCultivationRoles = async () => {
-  const result = await fetch(`${URL}cultivation-roles`);
+  try {
+    const result = await fetch(`${URL}cultivation-roles`);
 
-  return result.json();
+    if (!result.ok) {
+      throw new Error('Error Fetching Cultivation Roles');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Fetching Cultivation Roles: ${err}`);
+  }
 };

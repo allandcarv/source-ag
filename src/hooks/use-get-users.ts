@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getCultivationUsers } from '../core/services/api';
+import { getUsers } from '../core/services/api';
 
-export const useGetUsers = (cultivationId: string) => {
+export const useGetUsers = () => {
   return useQuery({
-    queryKey: [cultivationId, 'users'],
-    queryFn: () => getCultivationUsers(cultivationId),
+    queryKey: ['users'],
+    queryFn: getUsers,
   });
 };
