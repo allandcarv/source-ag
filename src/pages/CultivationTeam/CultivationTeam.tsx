@@ -7,8 +7,11 @@ import {
   StyledHeader,
   StyledSection,
 } from './CultivationTeam.styles';
+import { useGetData } from '../../hooks/use-get-data';
 
 export const CultivationTeam: FC = () => {
+  useGetData();
+
   return (
     <StyledContainer>
       <StyledHeader>
