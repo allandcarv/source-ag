@@ -4,10 +4,11 @@ import { Modal } from '../../core/components/Modal/Modal';
 import { UsersModalHeader } from './components/UsersModalHeader';
 import { UsersModalBody } from './components/UsersModalBody/UsersModalBody';
 import { UsersModalFooter } from './components/UsersModalFooter/UsersModalFooter';
-
-import { modalContainer } from './UsersModal.styles';
 import { useFilteredUsers } from '../../hooks/use-filtered-users';
 import { Spinner } from '../../core/components/Spinner/Spinner';
+
+import { modalContainer } from './UsersModal.styles';
+import { SelectedUsersProvider } from './providers/SelectedUsers';
 
 interface UsersModalProps {
   onClose: () => void;
@@ -27,8 +28,10 @@ export const UsersModal: FC<UsersModalProps> = ({ onClose }) => {
   return (
     <Modal onClose={onClose} className={modalContainer}>
       <UsersModalHeader onClose={onClose} />
-      <UsersModalBody users={filteredUsers} />
-      <UsersModalFooter />
+      <SelectedUsersProvider>
+        <UsersModalBody users={filteredUsers} />
+        <UsersModalFooter />
+      </SelectedUsersProvider>
     </Modal>
   );
 };

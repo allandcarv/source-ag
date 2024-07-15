@@ -13,3 +13,8 @@ export interface CultivationUserDTO {
   role: Role;
   user: User;
 }
+
+export interface CultivationUserRequestBody {
+  role: Pick<Role, 'id'>;
+  user: Pick<User, 'id'>;
+}

@@ -1,5 +1,8 @@
 import type { CultivationDTO } from '../../interfaces/cultivation-dto';
-import type { CultivationUserDTO } from '../../interfaces/cultivation-user-dto';
+import type {
+  CultivationUserDTO,
+  CultivationUserRequestBody,
+} from '../../interfaces/cultivation-user-dto';
 import type { RoleDTO } from '../../interfaces/role-dto';
 import type { UserDTO } from '../../interfaces/user-dto';
 
@@ -82,5 +85,28 @@ export const postCultivation = async (
     return result.json();
   } catch (err) {
     throw new Error(`Error Creating Cultivation: ${err}`);
+  }
+};
+
+export const postUserToCultivation = async (
+  body: CultivationUserRequestBody,
+  cultivationId: string
+): Promise<CultivationUserDTO> => {
+  try {
+    const result = await fetch(`${URL}cultivations/${cultivationId}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!result.ok) {
+      throw new Error('Error Creating Cultivation User');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Creating Cultivation User: ${err}`);
   }
 };

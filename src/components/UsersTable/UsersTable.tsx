@@ -6,14 +6,9 @@ import { useGetCultivationUsers } from '../../hooks/use-get-cultivation-users';
 import { UsersTableBody } from './components/UsersTableBody/UsersTableBody';
 import { UsersTableFooter } from './components/UsersTableFooter/UsersTableFooter';
 import { UsersTableHeader } from './components/UsersTableHeader';
-import { useParams } from '@tanstack/react-router';
 
 export const CultivationUsersTable: FC = () => {
-  const { cultivationId } = useParams({ strict: false });
-
-  if (!cultivationId) return null;
-
-  const { data, status } = useGetCultivationUsers(cultivationId);
+  const { data, status } = useGetCultivationUsers();
 
   if (status === 'success') {
     return (
