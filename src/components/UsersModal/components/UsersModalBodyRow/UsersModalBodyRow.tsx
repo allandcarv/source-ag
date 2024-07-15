@@ -1,19 +1,19 @@
 import type { FC } from 'react';
 
-import type { User } from '../../../../interfaces/user';
 import { StyledLI } from './UsersModalBodyRow.styles';
 import { Tag } from '../../../../core/components/Tag/Tag';
+import type { UserDTO } from '../../../../interfaces/user-dto';
 
 interface UsersModalBodyRowProps {
-  user: User;
+  user: UserDTO;
 }
 
 export const UsersModalBodyRow: FC<UsersModalBodyRowProps> = ({ user }) => {
   return (
     <StyledLI>
-      <input type="checkbox" value={user.name} key={user.name} id={user.name} />
+      <input type="checkbox" value={user.name} id={user.id.toString()} />
       <Tag text={user.name} />
-      <label htmlFor={user.name}>{user.name}</label>
+      <label htmlFor={user.id.toString()}>{user.name}</label>
     </StyledLI>
   );
 };

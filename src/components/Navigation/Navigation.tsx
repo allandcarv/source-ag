@@ -1,15 +1,15 @@
-import { Link } from '@tanstack/react-router';
 import type { FC } from 'react';
 
-import { StyledHeader, StyledList } from './Navigation.styles';
+import { StyledHeader, StyledLink, StyledList } from './Navigation.styles';
 
 export const Navigation: FC = () => {
   return (
     <StyledHeader>
       <nav>
         <StyledList>
-          <li>Home</li>
-          <li>Home</li>
+          <li>
+            <StyledLink to="/">Home</StyledLink>
+          </li>
         </StyledList>
       </nav>
     </StyledHeader>

@@ -5,22 +5,29 @@ import { UsersModalBodyRow } from '../UsersModalBodyRow/UsersModalBodyRow';
 
 import { StyledUL } from './UsersModalBody.styles';
 import { SearchInput } from '../../../../core/components/SearchInput/SearchInput';
+import type { UserDTO } from '../../../../interfaces/user-dto';
+import { useFilteredData } from '../../../../hooks/use-filtered-data';
 
-const DUMMY_DATA = [
-  { name: 'Ajay Elkanah', role: 'Head grower' },
-  { name: 'Kars ter Velde', role: 'Grower' },
-  { name: 'Lalit Dragana', role: 'Guest' },
-  { name: 'Aku Vinícius', role: 'Observer' },
-  { name: 'Paulien Jonker', role: 'Wholesaler' },
-];
+interface UsersModalBodyProps {
+  users: UserDTO[];
+}
 
-export const UsersModalBody: FC = () => {
+export const UsersModalBody: FC<UsersModalBodyProps> = ({ users }) => {
+  const { filteredData, onInputChangeHandler } = useFilteredData<UserDTO>(
+    users,
+    'name'
+  );
+
   return (
     <Modal.Body>
-      <SearchInput type="text" placeholder="Search teammember" />
+      <SearchInput
+        type="text"
+        placeholder="Search teammember"
+        onChange={onInputChangeHandler}
+      />
       <StyledUL>
-        {DUMMY_DATA.map((user) => (
-          <UsersModalBodyRow user={user} key={user.name} />
+        {filteredData.map((user) => (
+          <UsersModalBodyRow user={user} key={user.id} />
         ))}
       </StyledUL>
     </Modal.Body>
