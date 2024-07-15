@@ -18,20 +18,22 @@ export const usePostCultivationUser = () => {
     throw new Error('Error getting cultivation id');
   }
 
-  const { mutate } = useMutation({
-    mutationFn: (userId: number) => {
+  const { mutate, status } = useMutation({
+    mutationFn: (userIds: number[]) => {
       const role = data?.find((role) => role.name.toLowerCase() === 'observer');
 
-      const body: CultivationUserRequestBody = {
+      const bodies: CultivationUserRequestBody[] = userIds.map((userId) => ({
         role: {
           id: role?.id ?? 2,
         },
         user: {
           id: userId,
         },
-      };
+      }));
 
-      return postUserToCultivation(body, cultivationId);
+      return Promise.all(
+        bodies.map((body) => postUserToCultivation(body, cultivationId))
+      );
     },
     onMutate: async () => {
       await queryClient.cancelQueries({
@@ -52,10 +54,13 @@ export const usePostCultivationUser = () => {
         context?.previousCultivationUsers
       );
     },
-    onSuccess: (newUser) => {
+    onSuccess: (newUsers) => {
       queryClient.setQueryData(
         ['cultivations', cultivationId, 'users'],
-        (previous: User[]) => [...previous, parseUserData(newUser)]
+        (previous: User[]) => [
+          ...previous,
+          ...newUsers.map((newUser) => parseUserData(newUser)),
+        ]
       );
     },
     onSettled: () =>
@@ -66,5 +71,6 @@ export const usePostCultivationUser = () => {
 
   return {
     createCultivationUser: mutate,
+    status,
   };
 };

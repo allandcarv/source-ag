@@ -8,9 +8,13 @@ import { UsersTableFooter } from './components/UsersTableFooter/UsersTableFooter
 import { UsersTableHeader } from './components/UsersTableHeader';
 
 export const CultivationUsersTable: FC = () => {
-  const { data, status } = useGetCultivationUsers();
+  const { data, status: usersStatus } = useGetCultivationUsers();
 
-  if (status === 'success') {
+  if (usersStatus === 'pending') {
+    return <Spinner />;
+  }
+
+  if (usersStatus === 'success') {
     return (
       <Table>
         <UsersTableHeader />
@@ -18,10 +22,6 @@ export const CultivationUsersTable: FC = () => {
         <UsersTableFooter />
       </Table>
     );
-  }
-
-  if (status === 'pending') {
-    return <Spinner />;
   }
 
   return <p>An error has occurred</p>;

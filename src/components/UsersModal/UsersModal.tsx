@@ -30,7 +30,7 @@ export const UsersModal: FC<UsersModalProps> = ({ onClose }) => {
       <UsersModalHeader onClose={onClose} />
       <SelectedUsersProvider>
         <UsersModalBody users={filteredUsers} />
-        <UsersModalFooter />
+        <UsersModalFooter onClose={onClose} />
       </SelectedUsersProvider>
     </Modal>
   );

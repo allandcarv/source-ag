@@ -7,12 +7,17 @@ import { alignContentToRight } from './UsersModalFooter.styles';
 import { usePostCultivationUser } from '../../../../hooks/use-post-cultivation-user';
 import { useSelectedUsers } from '../../providers/SelectedUsers';
 
-export const UsersModalFooter: FC = () => {
+interface UsersModalFooterProps {
+  onClose: () => void;
+}
+
+export const UsersModalFooter: FC<UsersModalFooterProps> = ({ onClose }) => {
   const { createCultivationUser } = usePostCultivationUser();
   const { selectedUsers } = useSelectedUsers();
 
   const onClickHandler = () => {
-    selectedUsers.forEach((userId) => createCultivationUser(userId));
+    createCultivationUser(Array.from(selectedUsers));
+    onClose();
   };
 
   return (
