@@ -65,7 +65,7 @@ export const getCultivationRoles = async (): Promise<RoleDTO[]> => {
 
 export const postCultivation = async (
   body: Record<'name', string>
-): Promise<CultivationUserDTO> => {
+): Promise<CultivationDTO> => {
   try {
     const result = await fetch(`${URL}cultivations`, {
       method: 'POST',

@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 
 import { postCultivation } from '../core/services/api';
 import type { CultivationDTO } from '../interfaces/cultivation-dto';
 
 export const usePostCultivation = () => {
+  const navigate = useNavigate({ from: '/cultivation/$cultivationId' });
+
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -23,11 +26,17 @@ export const usePostCultivation = () => {
         context?.previousCultivations
       );
     },
-    onSuccess: (newCultivation) =>
+    onSuccess: (newCultivation) => {
       queryClient.setQueryData(
         ['cultivations'],
         (previous: CultivationDTO[]) => [...previous, newCultivation]
-      ),
+      );
+
+      navigate({
+        to: '/cultivation/$cultivationId',
+        params: { cultivationId: newCultivation.id },
+      });
+    },
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: ['cultivations'] }),
   });
