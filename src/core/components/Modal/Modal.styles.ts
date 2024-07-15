@@ -13,7 +13,8 @@ export const StyledOverlay = styled.section`
 `;
 
 export const StyledDialog = styled.dialog`
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
   border: 0;
   border-radius: 0.25rem;

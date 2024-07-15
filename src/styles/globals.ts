@@ -18,6 +18,8 @@ export const globals = css`
 
     #root {
       padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
     }
 
     button {
