@@ -10,6 +10,8 @@ export const UsersTableFooter: FC = () => {
 
   const onClickHandler = () => setShowModal((prevStatus) => !prevStatus);
 
+  const onCloseHandler = () => setShowModal(false);
+
   return (
     <>
       <Table.Foot>
@@ -21,7 +23,7 @@ export const UsersTableFooter: FC = () => {
           </Table.Cell>
         </Table.Row>
       </Table.Foot>
-      {showModal && <UsersModal onClose={() => setShowModal(false)} />}
+      {showModal && <UsersModal onClose={onCloseHandler} />}
     </>
   );
 };

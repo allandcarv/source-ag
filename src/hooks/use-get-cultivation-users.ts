@@ -39,7 +39,7 @@ export const useGetCultivationUsers = (cultivationId: string) => {
   const { data: usersData } = useGetUsers();
 
   return useQuery({
-    queryKey: [cultivationId, 'users'],
+    queryKey: ['cultivations', cultivationId, 'users'],
     queryFn: () => getCultivationUsers(cultivationId),
     select: useCallback(
       (data: CultivationUserDTO[]): User[] =>

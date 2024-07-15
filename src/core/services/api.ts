@@ -62,3 +62,25 @@ export const getCultivationRoles = async (): Promise<RoleDTO[]> => {
     throw new Error(`Error Fetching Cultivation Roles: ${err}`);
   }
 };
+
+export const postCultivation = async (
+  body: Record<'name', string>
+): Promise<CultivationUserDTO> => {
+  try {
+    const result = await fetch(`${URL}cultivations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!result.ok) {
+      throw new Error('Error Creating Cultivation');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Creating Cultivation: ${err}`);
+  }
+};

@@ -22,9 +22,13 @@ export const StyledButton = styled.button<ButtonProps>`
   border-color: ${(props) => BORDER_COLORS[props.variant]};
   color: ${(props) => FONT_COLORS[props.variant]};
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${(props) => BACKGROUND_HOVERED_COLORS[props.variant]};
     text-decoration: ${(props) =>
       props.variant === 'link' ? 'underline' : 'none'};
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 `;

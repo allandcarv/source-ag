@@ -21,7 +21,6 @@ export const UsersModalBody: FC<UsersModalBodyProps> = ({ users }) => {
   return (
     <Modal.Body>
       <SearchInput
-        type="text"
         placeholder="Search teammember"
         onChange={onInputChangeHandler}
       />
