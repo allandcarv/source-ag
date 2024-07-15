@@ -1,6 +1,11 @@
+import type { CultivationDTO } from '../../interfaces/cultivation-dto';
+import type { CultivationUserDTO } from '../../interfaces/cultivation-user-dto';
+import type { RoleDTO } from '../../interfaces/role-dto';
+import type { UserDTO } from '../../interfaces/user-dto';
+
 const URL = 'https://14dtv3lu9k.execute-api.eu-central-1.amazonaws.com/';
 
-export const getCultivations = async () => {
+export const getCultivations = async (): Promise<CultivationDTO[]> => {
   try {
     const result = await fetch(`${URL}cultivations`);
 
@@ -14,7 +19,7 @@ export const getCultivations = async () => {
   }
 };
 
-export const getUsers = async () => {
+export const getUsers = async (): Promise<UserDTO[]> => {
   try {
     const result = await fetch(`${URL}users`);
 
@@ -28,7 +33,9 @@ export const getUsers = async () => {
   }
 };
 
-export const getCultivationUsers = async (cultivationId: string) => {
+export const getCultivationUsers = async (
+  cultivationId: string
+): Promise<CultivationUserDTO[]> => {
   try {
     const result = await fetch(`${URL}cultivations/${cultivationId}/users`);
 
@@ -42,7 +49,7 @@ export const getCultivationUsers = async (cultivationId: string) => {
   }
 };
 
-export const getCultivationRoles = async () => {
+export const getCultivationRoles = async (): Promise<RoleDTO[]> => {
   try {
     const result = await fetch(`${URL}cultivation-roles`);
 

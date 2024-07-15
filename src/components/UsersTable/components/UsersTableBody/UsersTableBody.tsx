@@ -25,7 +25,7 @@ export const UsersTableBody: FC<UsersTableBodyProps> = ({ users }) => {
           </Table.Cell>
           <Table.Cell>
             <ContainerCell>
-              {user.role}
+              {user.role.name}
               <ArrowIcon collapsed />
             </ContainerCell>
           </Table.Cell>
