@@ -1,10 +1,14 @@
 import type { FC } from 'react';
 
-import { CultivationTeam } from './pages/CultivationTeam/CultivationTeam';
 import { QueryProvider } from './core/providers/QueryProvider';
+import { Navigation } from './components/Navigation/Navigation';
+import { Outlet } from '@tanstack/react-router';
 
 export const App: FC = () => (
-  <QueryProvider>
-    <CultivationTeam />
-  </QueryProvider>
+  <>
+    <Navigation />
+    <QueryProvider>
+      <Outlet />
+    </QueryProvider>
+  </>
 );

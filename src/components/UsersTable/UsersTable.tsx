@@ -1,14 +1,19 @@
+import type { FC } from 'react';
+
 import { Spinner } from '../../core/components/Spinner/Spinner';
 import { Table } from '../../core/components/Table/Table';
 import { useGetCultivationUsers } from '../../hooks/use-get-cultivation-users';
 import { UsersTableBody } from './components/UsersTableBody/UsersTableBody';
 import { UsersTableFooter } from './components/UsersTableFooter/UsersTableFooter';
 import { UsersTableHeader } from './components/UsersTableHeader';
+import { useParams } from '@tanstack/react-router';
 
-export const UsersTable = () => {
-  const { data, status } = useGetCultivationUsers(
-    '94eb21dd-d0d2-4e30-b3b8-51be6c6fa699'
-  );
+export const CultivationUsersTable: FC = () => {
+  const { cultivationId } = useParams({ strict: false });
+
+  if (!cultivationId) return null;
+
+  const { data, status } = useGetCultivationUsers(cultivationId);
 
   if (status === 'success') {
     return (

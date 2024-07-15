@@ -16,6 +16,10 @@ export const globals = css`
       background-color: #f6f9f3;
     }
 
+    #root {
+      padding: 1.5rem;
+    }
+
     button {
       cursor: pointer;
 

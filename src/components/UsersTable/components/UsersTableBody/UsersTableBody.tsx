@@ -16,7 +16,7 @@ export const UsersTableBody: FC<UsersTableBodyProps> = ({ users }) => {
   return (
     <Table.Body>
       {users.map((user) => (
-        <Table.Row key={user.name}>
+        <Table.Row key={user.id}>
           <Table.Cell>
             <ContainerCell>
               <Tag text={user.name} />
