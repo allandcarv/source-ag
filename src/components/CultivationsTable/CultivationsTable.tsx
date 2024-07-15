@@ -10,12 +10,9 @@ import { SearchInput } from '../../core/components/SearchInput/SearchInput';
 import { useFilteredData } from '../../hooks/use-filtered-data';
 
 export const CultivationsTable: FC = () => {
-  const { data, status } = useGetCultivations();
+  const { data = [], status } = useGetCultivations();
 
-  const { filteredData, onInputChangeHandler } = useFilteredData(
-    data ?? [],
-    'name'
-  );
+  const { filteredData, onInputChangeHandler } = useFilteredData(data, 'name');
 
   if (status === 'success') {
     return (

@@ -8,7 +8,9 @@ export const useFilteredData = <T>(data: T[], dataProp: keyof T) => {
       setFilteredData(
         data.filter((entry) => {
           if (typeof entry[dataProp] === 'string') {
-            return entry[dataProp].startsWith(e.target.value.trim());
+            return entry[dataProp]
+              .toLowerCase()
+              .startsWith(e.target.value.trim().toLowerCase());
           }
 
           return entry;
@@ -19,7 +21,11 @@ export const useFilteredData = <T>(data: T[], dataProp: keyof T) => {
     }
   };
 
-  useEffect(() => setFilteredData(data ?? []), [data]);
+  useEffect(() => {
+    if (data.length) {
+      setFilteredData(data);
+    }
+  }, [data]);
 
   return { filteredData, onInputChangeHandler };
 };
