@@ -7,12 +7,18 @@ import { ArrowIcon } from '../../../../core/components/ArrowIcon/ArrowIcon';
 import { ContainerCell } from './UsersTableBody.styles';
 import { Button } from '../../../../core/components/Button/Button';
 import { Tag } from '../../../../core/components/Tag/Tag';
+import { useDeleteCultivationUser } from '../../../../hooks/use-delete-cultivation-user';
 
 interface UsersTableBodyProps {
   users: User[];
 }
 
 export const UsersTableBody: FC<UsersTableBodyProps> = ({ users }) => {
+  const { deleteCultivationUser } = useDeleteCultivationUser();
+
+  const onButtonClickHandler = (userId: number) =>
+    deleteCultivationUser(userId);
+
   return (
     <Table.Body>
       {users.map((user) => (
@@ -30,7 +36,12 @@ export const UsersTableBody: FC<UsersTableBodyProps> = ({ users }) => {
             </ContainerCell>
           </Table.Cell>
           <Table.Cell>
-            <Button variant="link">Remove</Button>
+            <Button
+              variant="link"
+              onClick={() => onButtonClickHandler(user.id)}
+            >
+              Remove
+            </Button>
           </Table.Cell>
         </Table.Row>
       ))}

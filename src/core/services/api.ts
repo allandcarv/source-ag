@@ -110,3 +110,25 @@ export const postUserToCultivation = async (
     throw new Error(`Error Creating Cultivation User: ${err}`);
   }
 };
+
+export const deleteUserFromCultivation = async (
+  userId: number,
+  cultivationId: string
+): Promise<void> => {
+  try {
+    const result = await fetch(
+      `${URL}cultivations/${cultivationId}/users/${userId}`,
+      {
+        method: 'DELETE',
+      }
+    );
+
+    if (!result.ok) {
+      throw new Error('Error Removing Cultivation User');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Removing Cultivation User: ${err}`);
+  }
+};
