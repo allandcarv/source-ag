@@ -7,7 +7,7 @@ import type {
 import type { RoleDTO } from '../../interfaces/role-dto';
 import type { UserDTO } from '../../interfaces/user-dto';
 
-const URL = 'https://14dtv3lu9k.execute-api.eu-central-1.amazonaws.com/';
+export const URL = 'https://14dtv3lu9k.execute-api.eu-central-1.amazonaws.com/';
 
 export const getCultivations = async (): Promise<CultivationDTO[]> => {
   try {

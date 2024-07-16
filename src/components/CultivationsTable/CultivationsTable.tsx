@@ -11,12 +11,16 @@ import { useFilteredData } from '../../hooks/use-filtered-data';
 import { useMutations } from '../../providers/MutationsProvider';
 
 export const CultivationsTable: FC = () => {
-  const { data = [], status } = useGetCultivations();
+  const { data, status } = useGetCultivations();
+
   const {
     postCultivation: { isPending: mutationPending },
   } = useMutations();
 
-  const { filteredData, onInputChangeHandler } = useFilteredData(data, 'name');
+  const { filteredData, onInputChangeHandler } = useFilteredData(
+    data ?? [],
+    'name'
+  );
 
   if (status === 'success') {
     return (

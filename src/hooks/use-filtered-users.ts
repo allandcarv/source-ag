@@ -1,14 +1,11 @@
-import { useParams } from '@tanstack/react-router';
 import { useMemo } from 'react';
 
 import { useGetCultivationUsers } from './use-get-cultivation-users';
 import { useGetUsers } from './use-get-users';
 
 export const useFilteredUsers = () => {
-  const { cultivationId } = useParams({ strict: false });
-
   const users = useGetUsers();
-  const cultivationUsers = useGetCultivationUsers(cultivationId ?? '');
+  const cultivationUsers = useGetCultivationUsers();
 
   const isLoading =
     users.status === 'pending' && cultivationUsers.status === 'pending';
