@@ -2,11 +2,12 @@ import type { FC } from 'react';
 
 import { Modal } from '../../../../core/components/Modal/Modal';
 import { UsersModalBodyRow } from '../UsersModalBodyRow/UsersModalBodyRow';
-
-import { StyledUL } from './UsersModalBody.styles';
 import { SearchInput } from '../../../../core/components/SearchInput/SearchInput';
 import type { UserDTO } from '../../../../interfaces/user-dto';
 import { useFilteredData } from '../../../../hooks/use-filtered-data';
+import { COLORS } from '../../../constants';
+
+import { StyledUL } from './UsersModalBody.styles';
 
 interface UsersModalBodyProps {
   users: UserDTO[];
@@ -25,9 +26,13 @@ export const UsersModalBody: FC<UsersModalBodyProps> = ({ users }) => {
         onChange={onInputChangeHandler}
       />
       <StyledUL>
-        {filteredData.map((user) => (
-          <UsersModalBodyRow user={user} key={user.id} />
-        ))}
+        {filteredData.map((user, index) => {
+          const tagColor = COLORS[(index + 1) % COLORS.length];
+
+          return (
+            <UsersModalBodyRow user={user} tagColor={tagColor} key={user.id} />
+          );
+        })}
       </StyledUL>
     </Modal.Body>
   );
