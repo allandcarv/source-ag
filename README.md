@@ -18,3 +18,9 @@ dev; // Run the project
 test; // Run unit and integration tests
 build; // Build the project
 ```
+
+## Worth to mention
+
+- Intentionally, only a few tests were added for demonstration purposes.
+- Zero-Runtime CSS-in-JS libraries shine when it comes to runtime overhead and bundle size [Sam Magura, Emotion Maintainer](https://dev.to/srmagura/why-were-breaking-up-wiht-css-in-js-4g9b)
+- API mocking tool is more reliable than mocking the fetch command. [Kent. C. Dodds](https://kentcdodds.com/blog/stop-mocking-fetch)
