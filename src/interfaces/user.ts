@@ -1,8 +1,8 @@
-import type { Role } from './cultivation-user-dto';
+import type { RoleDTO } from './role-dto';
 
 export interface User {
   id: number;
   cultivationId: string;
   name: string;
-  role: Role;
+  role: Omit<RoleDTO, 'description'>;
 }
