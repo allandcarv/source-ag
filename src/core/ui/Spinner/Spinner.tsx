@@ -1,9 +1,11 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { SpinnerOverlay, StyledSpinner } from './Spinner.styles';
 
-export const Spinner: FC = () => (
-  <SpinnerOverlay>
+type SpinnerProps = HTMLAttributes<HTMLDivElement>;
+
+export const Spinner: FC<SpinnerProps> = (props) => (
+  <SpinnerOverlay {...props}>
     <StyledSpinner />
   </SpinnerOverlay>
 );

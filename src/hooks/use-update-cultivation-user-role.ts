@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from '@tanstack/react-router';
 
 import { updateUserRole } from '../core/services/api';
 import type { CultivationUserUpdateRoleBody } from '../interfaces/cultivation-user-dto';
@@ -7,15 +6,18 @@ import { parseUserData } from '../core/utils/parse-user-data';
 import type { User } from '../interfaces/user';
 
 export const useUpdateCultivationUserRole = () => {
-  const { cultivationId } = useParams({ strict: false });
   const queryClient = useQueryClient();
 
-  if (!cultivationId) {
-    throw new Error('Error getting cultivation id');
-  }
-
-  const mutation = useMutation({
-    mutationFn: ({ userId, roleId }: { userId: number; roleId: number }) => {
+  return useMutation({
+    mutationFn: ({
+      cultivationId,
+      userId,
+      roleId,
+    }: {
+      cultivationId: string;
+      userId: number;
+      roleId: number;
+    }) => {
       const body: CultivationUserUpdateRoleBody = {
         role: {
           id: roleId,
@@ -24,7 +26,7 @@ export const useUpdateCultivationUserRole = () => {
 
       return updateUserRole(body, cultivationId, userId);
     },
-    onMutate: async () => {
+    onMutate: async ({ cultivationId }) => {
       await queryClient.cancelQueries({
         queryKey: ['cultivations', cultivationId, 'users'],
       });
@@ -37,25 +39,21 @@ export const useUpdateCultivationUserRole = () => {
 
       return { previousCultivationUsers };
     },
-    onError: (_err, _variables, context) => {
+    onError: (_err, { cultivationId }, context) => {
       queryClient.setQueryData<User[]>(
         ['cultivations', cultivationId, 'users'],
         context?.previousCultivationUsers
       );
     },
-    onSuccess: (newUser) => {
+    onSuccess: (newUser, { cultivationId }) => {
       queryClient.setQueryData(
         ['cultivations', cultivationId, 'users'],
         (previous: User[]) => [...previous, parseUserData(newUser)]
       );
     },
-    onSettled: () =>
+    onSettled: (_data, _error, { cultivationId }) =>
       queryClient.invalidateQueries({
         queryKey: ['cultivations', cultivationId, 'users'],
       }),
   });
-
-  return {
-    updateCultivationUserRole: mutation.mutate,
-  };
 };

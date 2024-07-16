@@ -1,21 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from '@tanstack/react-router';
 
 import { deleteUserFromCultivation } from '../core/services/api';
-import type { User } from '../interfaces/cultivation-user-dto';
+import type { User } from '../interfaces/user';
 
 export const useDeleteCultivationUser = () => {
-  const { cultivationId } = useParams({ strict: false });
   const queryClient = useQueryClient();
 
-  if (!cultivationId) {
-    throw new Error('Error getting cultivation id');
-  }
-
-  const { mutate } = useMutation({
-    mutationFn: (userId: number) =>
-      deleteUserFromCultivation(userId, cultivationId),
-    onMutate: async () => {
+  return useMutation({
+    mutationFn: ({
+      userId,
+      cultivationId,
+    }: {
+      userId: number;
+      cultivationId: string;
+    }) => deleteUserFromCultivation(userId, cultivationId),
+    onMutate: async ({ cultivationId }) => {
       await queryClient.cancelQueries({
         queryKey: ['cultivations', cultivationId, 'users'],
       });
@@ -28,25 +27,21 @@ export const useDeleteCultivationUser = () => {
 
       return { previousCultivationUsers };
     },
-    onError: (_err, _variables, context) => {
+    onError: (_err, { cultivationId }, context) => {
       queryClient.setQueryData<User[]>(
         ['cultivations', cultivationId, 'users'],
         context?.previousCultivationUsers
       );
     },
-    onSuccess: (_, userId) => {
+    onSuccess: (_data, { userId, cultivationId }) => {
       queryClient.setQueryData(
         ['cultivations', cultivationId, 'users'],
         (previous: User[]) => previous.filter((user) => user.id !== userId)
       );
     },
-    onSettled: () =>
+    onSettled: (_data, _error, { cultivationId }) =>
       queryClient.invalidateQueries({
         queryKey: ['cultivations', cultivationId, 'users'],
       }),
   });
-
-  return {
-    deleteCultivationUser: mutate,
-  };
 };

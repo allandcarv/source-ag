@@ -2,10 +2,11 @@ import { useState, type FC } from 'react';
 
 import { Modal } from '../../core/ui/Modal/Modal';
 
-import { usePostCultivation } from '../../hooks/use-post-cultivation';
 import { AddCultivationModalHeader } from './components/AddCultivationModalHeader';
 import { AddCultivationModalBody } from './components/AddCultivationModalBody';
 import { AddCultivationModalFooter } from './components/AddCultivationModalFooter';
+import { useMutations } from '../../providers/MutationsProvider';
+
 import { modalContainer } from './AddCultivationModal.styles';
 
 interface AddCultivationModal {
@@ -15,14 +16,16 @@ interface AddCultivationModal {
 export const AddCultivationModal: FC<AddCultivationModal> = ({ onClose }) => {
   const [cultivationName, setCultivationName] = useState<string>('');
 
-  const { createCultivation } = usePostCultivation();
+  const {
+    postCultivation: { mutate },
+  } = useMutations();
 
   const setCultivationNameHandler = (text: string) => {
     setCultivationName(text.trim());
   };
 
   const onAddCultivationHandler = () => {
-    createCultivation({ name: cultivationName });
+    mutate({ name: cultivationName });
     onClose();
   };
 

@@ -8,9 +8,13 @@ import { CultivationsTableBody } from './components/CultivationsTableBody';
 import { CultivationsTableFooter } from './components/CultivationsTableFooter/CultivationsTableFooter';
 import { SearchInput } from '../../core/ui/SearchInput/SearchInput';
 import { useFilteredData } from '../../hooks/use-filtered-data';
+import { useMutations } from '../../providers/MutationsProvider';
 
 export const CultivationsTable: FC = () => {
   const { data = [], status } = useGetCultivations();
+  const {
+    postCultivation: { isPending: mutationPending },
+  } = useMutations();
 
   const { filteredData, onInputChangeHandler } = useFilteredData(data, 'name');
 
@@ -27,7 +31,7 @@ export const CultivationsTable: FC = () => {
     );
   }
 
-  if (status === 'pending') {
+  if (status === 'pending' || mutationPending) {
     return <Spinner />;
   }
 

@@ -9,7 +9,7 @@ export const usePostCultivation = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  return useMutation({
     mutationFn: postCultivation,
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['cultivations'] });
@@ -40,8 +40,4 @@ export const usePostCultivation = () => {
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: ['cultivations'] }),
   });
-
-  return {
-    createCultivation: mutate,
-  };
 };

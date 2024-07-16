@@ -6,11 +6,16 @@ import { useGetCultivationUsers } from '../../hooks/use-get-cultivation-users';
 import { UsersTableBody } from './components/UsersTableBody/UsersTableBody';
 import { UsersTableFooter } from './components/UsersTableFooter/UsersTableFooter';
 import { UsersTableHeader } from './components/UsersTableHeader';
+import { useMutations } from '../../providers/MutationsProvider';
 
 export const CultivationUsersTable: FC = () => {
-  const { data, status: usersStatus } = useGetCultivationUsers();
+  const {
+    deleteCultivationUser: { isPending: deleteUserPending },
+    postCultivationUser: { isPending: postUserPending },
+  } = useMutations();
+  const { status: usersStatus } = useGetCultivationUsers();
 
-  if (usersStatus === 'pending') {
+  if (usersStatus === 'pending' || postUserPending || deleteUserPending) {
     return <Spinner />;
   }
 
@@ -18,7 +23,7 @@ export const CultivationUsersTable: FC = () => {
     return (
       <Table>
         <UsersTableHeader />
-        <UsersTableBody users={data ?? []} />
+        <UsersTableBody />
         <UsersTableFooter />
       </Table>
     );

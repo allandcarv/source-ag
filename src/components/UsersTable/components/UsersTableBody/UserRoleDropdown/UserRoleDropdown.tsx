@@ -4,17 +4,21 @@ import type { User } from '../../../../../interfaces/user';
 import { Dropdown } from '../../../../../core/ui/Dropdown/Dropdown';
 import { useGetRoles } from '../../../../../hooks/use-get-roles';
 import { Spinner } from '../../../../../core/ui/Spinner/Spinner';
+import { useMutations } from '../../../../../providers/MutationsProvider';
 
 import { StyledList, SyledListItem } from './UserRoleDropdown.styles';
-import { useUpdateCultivationUserRole } from '../../../../../hooks/use-update-cultivation-user-role';
+import { useParams } from '@tanstack/react-router';
 
 interface UserRoleDropdownProps {
   user: User;
 }
 
 export const UserRoleDropdown: FC<UserRoleDropdownProps> = ({ user }) => {
+  const { cultivationId = '' } = useParams({ strict: false });
   const { data, status } = useGetRoles();
-  const { updateCultivationUserRole } = useUpdateCultivationUserRole();
+  const {
+    updateCultivationUserRole: { mutate: updateCultivationUserRole },
+  } = useMutations();
 
   if (status === 'pending') {
     return (
@@ -27,7 +31,7 @@ export const UserRoleDropdown: FC<UserRoleDropdownProps> = ({ user }) => {
   const filteredRoles = data?.filter((role) => role.id !== user.role.id);
 
   const onClickRoleHandler = (roleId: number) =>
-    updateCultivationUserRole({ userId: user.id, roleId });
+    updateCultivationUserRole({ userId: user.id, roleId, cultivationId });
 
   return (
     <Dropdown onClick={(e) => e.stopPropagation()}>

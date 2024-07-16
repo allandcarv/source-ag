@@ -1,22 +1,26 @@
 import type { FC } from 'react';
+import { useParams } from '@tanstack/react-router';
 
 import { Button } from '../../../../core/ui/Button/Button';
 import { Modal } from '../../../../core/ui/Modal/Modal';
 
 import { alignContentToRight } from './UsersModalFooter.styles';
-import { usePostCultivationUser } from '../../../../hooks/use-post-cultivation-user';
 import { useSelectedUsers } from '../../providers/SelectedUsers';
+import { useMutations } from '../../../../providers/MutationsProvider';
 
 interface UsersModalFooterProps {
   onClose: () => void;
 }
 
 export const UsersModalFooter: FC<UsersModalFooterProps> = ({ onClose }) => {
-  const { createCultivationUser } = usePostCultivationUser();
+  const { cultivationId = '' } = useParams({ strict: false });
+  const {
+    postCultivationUser: { mutate },
+  } = useMutations();
   const { selectedUsers } = useSelectedUsers();
 
   const onClickHandler = () => {
-    createCultivationUser(Array.from(selectedUsers));
+    mutate({ userIds: Array.from(selectedUsers), cultivationId });
     onClose();
   };
 

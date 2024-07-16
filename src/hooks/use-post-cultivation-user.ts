@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from '@tanstack/react-router';
 
 import { postUserToCultivation } from '../core/services/api';
 import type { CultivationUserRequestBody } from '../interfaces/cultivation-user-dto';
@@ -8,16 +7,17 @@ import { useGetRoles } from './use-get-roles';
 import type { User } from '../interfaces/user';
 
 export const usePostCultivationUser = () => {
-  const { cultivationId } = useParams({ strict: false });
   const queryClient = useQueryClient();
   const { data } = useGetRoles();
 
-  if (!cultivationId) {
-    throw new Error('Error getting cultivation id');
-  }
-
-  const { mutate, status } = useMutation({
-    mutationFn: (userIds: number[]) => {
+  return useMutation({
+    mutationFn: ({
+      cultivationId,
+      userIds,
+    }: {
+      userIds: number[];
+      cultivationId: string;
+    }) => {
       const role = data?.find((role) => role.name.toLowerCase() === 'observer');
 
       const bodies: CultivationUserRequestBody[] = userIds.map((userId) => ({
@@ -33,7 +33,7 @@ export const usePostCultivationUser = () => {
         bodies.map((body) => postUserToCultivation(body, cultivationId))
       );
     },
-    onMutate: async () => {
+    onMutate: async ({ cultivationId }) => {
       await queryClient.cancelQueries({
         queryKey: ['cultivations', cultivationId, 'users'],
       });
@@ -46,13 +46,13 @@ export const usePostCultivationUser = () => {
 
       return { previousCultivationUsers };
     },
-    onError: (_err, _variables, context) => {
+    onError: (_err, { cultivationId }, context) => {
       queryClient.setQueryData<User[]>(
         ['cultivations', cultivationId, 'users'],
         context?.previousCultivationUsers
       );
     },
-    onSuccess: (newUsers) => {
+    onSuccess: (newUsers, { cultivationId }) => {
       queryClient.setQueryData(
         ['cultivations', cultivationId, 'users'],
         (previous: User[]) => [
@@ -61,14 +61,9 @@ export const usePostCultivationUser = () => {
         ]
       );
     },
-    onSettled: () =>
+    onSettled: (_data, _error, { cultivationId }) =>
       queryClient.invalidateQueries({
         queryKey: ['cultivations', cultivationId, 'users'],
       }),
   });
-
-  return {
-    createCultivationUser: mutate,
-    status,
-  };
 };
