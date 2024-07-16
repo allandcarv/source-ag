@@ -4,5 +4,4 @@ export const StyledContainer = styled.main`
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 `;
