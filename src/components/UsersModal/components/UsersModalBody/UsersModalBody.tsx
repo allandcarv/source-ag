@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
-import { Modal } from '../../../../core/components/Modal/Modal';
+import { Modal } from '../../../../core/ui/Modal/Modal';
 import { UsersModalBodyRow } from '../UsersModalBodyRow/UsersModalBodyRow';
-import { SearchInput } from '../../../../core/components/SearchInput/SearchInput';
+import { SearchInput } from '../../../../core/ui/SearchInput/SearchInput';
 import type { UserDTO } from '../../../../interfaces/user-dto';
 import { useFilteredData } from '../../../../hooks/use-filtered-data';
 import { COLORS } from '../../../constants';

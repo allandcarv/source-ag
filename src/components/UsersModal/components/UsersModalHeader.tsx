@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Modal } from '../../../core/components/Modal/Modal';
+import { Modal } from '../../../core/ui/Modal/Modal';
 
 interface UsersModalHeaderProps {
   onClose: () => void;

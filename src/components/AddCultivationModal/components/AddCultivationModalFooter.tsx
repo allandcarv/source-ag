@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { Modal } from '../../../core/components/Modal/Modal';
-import { Button } from '../../../core/components/Button/Button';
+import { Modal } from '../../../core/ui/Modal/Modal';
+import { Button } from '../../../core/ui/Button/Button';
 
 interface AddCultivationModalFooterProps {
   onAddCultivation: () => void;

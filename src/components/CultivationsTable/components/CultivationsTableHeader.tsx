@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Table } from '../../../core/components/Table/Table';
+import { Table } from '../../../core/ui/Table/Table';
 
 export const CultivationsTableHeader: FC = () => {
   return (

@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
-import { Modal } from '../../core/components/Modal/Modal';
+import { Modal } from '../../core/ui/Modal/Modal';
 import { UsersModalHeader } from './components/UsersModalHeader';
 import { UsersModalBody } from './components/UsersModalBody/UsersModalBody';
 import { UsersModalFooter } from './components/UsersModalFooter/UsersModalFooter';
 import { useFilteredUsers } from '../../hooks/use-filtered-users';
-import { Spinner } from '../../core/components/Spinner/Spinner';
+import { Spinner } from '../../core/ui/Spinner/Spinner';
 
 import { modalContainer } from './UsersModal.styles';
 import { SelectedUsersProvider } from './providers/SelectedUsers';

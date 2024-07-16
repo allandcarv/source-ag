@@ -1,20 +1,19 @@
-export interface Role {
-  id: number;
-  name: string;
-}
-
-export interface User {
-  id: number;
-  name: string;
-}
+import type { RoleDTO } from './role-dto';
+import type { UserDTO } from './user-dto';
 
 export interface CultivationUserDTO {
   cultivation_id: string;
-  role: Role;
-  user: User;
+  role: Omit<RoleDTO, 'description'>;
+  user: UserDTO;
 }
 
 export interface CultivationUserRequestBody {
-  role: Pick<Role, 'id'>;
-  user: Pick<User, 'id'>;
+  role: Pick<RoleDTO, 'id'>;
+  user: Pick<UserDTO, 'id'>;
+}
+
+export interface CultivationUserUpdateRoleBody {
+  role: {
+    id: number;
+  };
 }

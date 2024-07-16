@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useParams } from '@tanstack/react-router';
 
 import { CultivationUsersTable } from '../components/UsersTable/UsersTable';
-import { Page } from '../core/components/Page/Page';
+import { Page } from '../core/ui/Page/Page';
 import { useGetCultivations } from '../hooks/use-get-cultivations';
 
 // 94eb21dd-d0d2-4e30-b3b8-51be6c6fa699

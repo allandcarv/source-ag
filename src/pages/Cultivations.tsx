@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Page } from '../core/components/Page/Page';
+import { Page } from '../core/ui/Page/Page';
 import { CultivationsTable } from '../components/CultivationsTable/CultivationsTable';
 
 export const Cultivations: FC = () => {

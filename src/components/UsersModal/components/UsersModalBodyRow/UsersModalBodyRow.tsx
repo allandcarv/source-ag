@@ -1,6 +1,6 @@
 import type { ChangeEvent, FC } from 'react';
 
-import { Tag } from '../../../../core/components/Tag/Tag';
+import { Tag } from '../../../../core/ui/Tag/Tag';
 import type { UserDTO } from '../../../../interfaces/user-dto';
 import { useSelectedUsers } from '../../providers/SelectedUsers';
 import type { Color } from '../../../../interfaces/tag-color';

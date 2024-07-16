@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { Spinner } from '../../core/components/Spinner/Spinner';
-import { Table } from '../../core/components/Table/Table';
+import { Spinner } from '../../core/ui/Spinner/Spinner';
+import { Table } from '../../core/ui/Table/Table';
 import { useGetCultivationUsers } from '../../hooks/use-get-cultivation-users';
 import { UsersTableBody } from './components/UsersTableBody/UsersTableBody';
 import { UsersTableFooter } from './components/UsersTableFooter/UsersTableFooter';

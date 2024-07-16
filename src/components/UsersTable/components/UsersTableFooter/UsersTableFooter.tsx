@@ -1,7 +1,7 @@
 import { useState, type FC } from 'react';
 
-import { Table } from '../../../../core/components/Table/Table';
-import { Button } from '../../../../core/components/Button/Button';
+import { Table } from '../../../../core/ui/Table/Table';
+import { Button } from '../../../../core/ui/Button/Button';
 import { tableFooterRow } from './UsersTableFooter.styles';
 import { UsersModal } from '../../../UsersModal/UsersModal';
 

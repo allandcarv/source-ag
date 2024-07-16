@@ -1,37 +1,28 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from '@tanstack/react-router';
 
-import { postUserToCultivation } from '../core/services/api';
-import type { CultivationUserRequestBody } from '../interfaces/cultivation-user-dto';
+import { updateUserRole } from '../core/services/api';
+import type { CultivationUserUpdateRoleBody } from '../interfaces/cultivation-user-dto';
 import { parseUserData } from '../core/utils/parse-user-data';
-import { useGetRoles } from './use-get-roles';
 import type { User } from '../interfaces/user';
 
-export const usePostCultivationUser = () => {
+export const useUpdateCultivationUserRole = () => {
   const { cultivationId } = useParams({ strict: false });
   const queryClient = useQueryClient();
-  const { data } = useGetRoles();
 
   if (!cultivationId) {
     throw new Error('Error getting cultivation id');
   }
 
-  const { mutate, status } = useMutation({
-    mutationFn: (userIds: number[]) => {
-      const role = data?.find((role) => role.name.toLowerCase() === 'observer');
-
-      const bodies: CultivationUserRequestBody[] = userIds.map((userId) => ({
+  const mutation = useMutation({
+    mutationFn: ({ userId, roleId }: { userId: number; roleId: number }) => {
+      const body: CultivationUserUpdateRoleBody = {
         role: {
-          id: role?.id ?? 2,
+          id: roleId,
         },
-        user: {
-          id: userId,
-        },
-      }));
+      };
 
-      return Promise.all(
-        bodies.map((body) => postUserToCultivation(body, cultivationId))
-      );
+      return updateUserRole(body, cultivationId, userId);
     },
     onMutate: async () => {
       await queryClient.cancelQueries({
@@ -52,13 +43,10 @@ export const usePostCultivationUser = () => {
         context?.previousCultivationUsers
       );
     },
-    onSuccess: (newUsers) => {
+    onSuccess: (newUser) => {
       queryClient.setQueryData(
         ['cultivations', cultivationId, 'users'],
-        (previous: User[]) => [
-          ...previous,
-          ...newUsers.map((newUser) => parseUserData(newUser)),
-        ]
+        (previous: User[]) => [...previous, parseUserData(newUser)]
       );
     },
     onSettled: () =>
@@ -68,7 +56,6 @@ export const usePostCultivationUser = () => {
   });
 
   return {
-    createCultivationUser: mutate,
-    status,
+    updateCultivationUserRole: mutation.mutate,
   };
 };

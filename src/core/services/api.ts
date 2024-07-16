@@ -2,6 +2,7 @@ import type { CultivationDTO } from '../../interfaces/cultivation-dto';
 import type {
   CultivationUserDTO,
   CultivationUserRequestBody,
+  CultivationUserUpdateRoleBody,
 } from '../../interfaces/cultivation-user-dto';
 import type { RoleDTO } from '../../interfaces/role-dto';
 import type { UserDTO } from '../../interfaces/user-dto';
@@ -108,6 +109,33 @@ export const postUserToCultivation = async (
     return result.json();
   } catch (err) {
     throw new Error(`Error Creating Cultivation User: ${err}`);
+  }
+};
+
+export const updateUserRole = async (
+  body: CultivationUserUpdateRoleBody,
+  cultivationId: string,
+  userId: number
+): Promise<CultivationUserDTO> => {
+  try {
+    const result = await fetch(
+      `${URL}cultivations/${cultivationId}/users/${userId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }
+    );
+
+    if (!result.ok) {
+      throw new Error('Error Updating Cultivation User');
+    }
+
+    return result.json();
+  } catch (err) {
+    throw new Error(`Error Updating Cultivation User: ${err}`);
   }
 };
 

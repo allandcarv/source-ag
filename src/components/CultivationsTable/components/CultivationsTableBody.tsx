@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import type { CultivationDTO } from '../../../interfaces/cultivation-dto';
-import { Table } from '../../../core/components/Table/Table';
+import { Table } from '../../../core/ui/Table/Table';
 import { Link } from '@tanstack/react-router';
 
 interface CultivationsTableBodyProps {

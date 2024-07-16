@@ -1,7 +1,7 @@
 import type { ChangeEvent, FC } from 'react';
 
-import { Modal } from '../../../core/components/Modal/Modal';
-import { TextInput } from '../../../core/components/TextInput/TextInput';
+import { Modal } from '../../../core/ui/Modal/Modal';
+import { TextInput } from '../../../core/ui/TextInput/TextInput';
 
 interface AddCultivationModalBodyProps {
   onSetCultivationName: (text: string) => void;
