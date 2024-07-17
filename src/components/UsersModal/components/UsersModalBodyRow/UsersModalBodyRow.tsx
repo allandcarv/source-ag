@@ -29,7 +29,7 @@ export const UsersModalBodyRow: FC<UsersModalBodyRowProps> = ({
         type="checkbox"
         value={user.id}
         id={user.id.toString()}
-        checked={selectedUsers.has(user.id)}
+        checked={isUserChecked}
         onChange={onChangeHandler}
       />
 
