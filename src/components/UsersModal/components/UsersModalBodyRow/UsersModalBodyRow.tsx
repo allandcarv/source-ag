@@ -1,11 +1,11 @@
-import type { ChangeEvent, FC } from 'react';
+import type { FC } from 'react';
 
 import { Tag } from '../../../../core/ui/Tag/Tag';
 import type { UserDTO } from '../../../../interfaces/user-dto';
 import { useSelectedUsers } from '../../providers/SelectedUsers';
 import type { Color } from '../../../../interfaces/tag-color';
 
-import { StyledLI } from './UsersModalBodyRow.styles';
+import { StyledLabel, StyledLI } from './UsersModalBodyRow.styles';
 
 interface UsersModalBodyRowProps {
   user: UserDTO;
@@ -16,11 +16,12 @@ export const UsersModalBodyRow: FC<UsersModalBodyRowProps> = ({
   tagColor,
   user,
 }) => {
-  const { selectedUsers, setSelectedUsers } = useSelectedUsers();
+  const { selectedUsers, addSelectUser, removeSelectUser } = useSelectedUsers();
 
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedUsers(+event.target.value);
-  };
+  const isUserChecked = selectedUsers.has(user.id);
+
+  const onChangeHandler = () =>
+    isUserChecked ? removeSelectUser(user.id) : addSelectUser(user.id);
 
   return (
     <StyledLI>
@@ -31,8 +32,11 @@ export const UsersModalBodyRow: FC<UsersModalBodyRowProps> = ({
         checked={selectedUsers.has(user.id)}
         onChange={onChangeHandler}
       />
-      <Tag text={user.name} tagColor={tagColor} />
-      <label htmlFor={user.id.toString()}>{user.name}</label>
+
+      <StyledLabel htmlFor={user.id.toString()}>
+        <Tag text={user.name} tagColor={tagColor} />
+        {user.name}
+      </StyledLabel>
     </StyledLI>
   );
 };

@@ -8,7 +8,8 @@ import {
 
 export interface SelectedUsersContextProps {
   selectedUsers: Set<number>;
-  setSelectedUsers: (id: number) => void;
+  addSelectUser: (id: number) => void;
+  removeSelectUser: (id: number) => void;
 }
 const SelectedUsersContext = createContext<SelectedUsersContextProps>(
   {} as SelectedUsersContextProps
@@ -17,12 +18,19 @@ const SelectedUsersContext = createContext<SelectedUsersContextProps>(
 export const SelectedUsersProvider: FC<PropsWithChildren> = ({ children }) => {
   const [selectedUsers, setSelectedUsers] = useState<Set<number>>(new Set());
 
-  const setSelectedUsersHandler = (id: number) =>
+  const addSelectUser = (id: number) =>
     setSelectedUsers((prev) => new Set(prev.add(id)));
+
+  const removeSelectUser = (id: number) =>
+    setSelectedUsers((prev) => {
+      prev.delete(id);
+
+      return new Set(prev);
+    });
 
   return (
     <SelectedUsersContext.Provider
-      value={{ selectedUsers, setSelectedUsers: setSelectedUsersHandler }}
+      value={{ selectedUsers, addSelectUser, removeSelectUser }}
     >
       {children}
     </SelectedUsersContext.Provider>
